@@ -1,16 +1,27 @@
+@import url('high-gloss-lacquer.css');
+
 :root {
-    --bg-dark: transparent;
-    --bg-card: rgba(21, 28, 44, 0.72);
-    --border-color: rgba(255, 255, 255, 0.07);
-    --border-hover: rgba(0, 242, 254, 0.25);
+    /* High-Gloss Lacquer Brand Colors — Navy Blue (#050B18 to #0E1D3A) & Tan (#C5A059 to #DFBA73) */
+    --c-navy: #0E1D3A;
+    --c-navy-deep: #050B18;
+    --c-navy-light: #16284D;
+    --c-tan: #C5A059;
+    --c-tan-bright: #DFBA73;
+    --c-tan-glow: rgba(197, 160, 89, 0.3);
+
+    --bg-dark: #050B18;
+    --bg-card: #0E1D3A;
+    --border-color: rgba(197, 160, 89, 0.28);
+    --border-hover: rgba(223, 186, 115, 0.85);
     
-    --text-primary: #f1f5f9;
+    --text-primary: #f0f4f8;
     --text-secondary: #94a3b8;
     --text-muted: #64748b;
+    --text-tan: #DFBA73;
     
-    --color-primary: #00f2fe;
-    --color-primary-rgb: 0, 242, 254;
-    --color-secondary: #0072ff;
+    --color-primary: #C8A96E;
+    --color-primary-rgb: 200, 169, 110;
+    --color-secondary: #1B2A4A;
     --color-success: #10b981;
     --color-warning: #f5a623;
     --color-danger: #ef4444;
@@ -31,59 +42,40 @@ body {
     color: var(--text-primary);
     font-family: var(--font-body);
     min-height: 100vh;
-    padding: 2.5rem;
+    padding: 0;
+    margin: 0;
     overflow-x: hidden;
     position: relative;
+    display: flex;
 }
 
 /* Background Glow Effects */
 .glow-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    overflow: hidden;
-    pointer-events: none;
+    display: none !important;
 }
 
-.glow-orb {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(140px);
-    opacity: 0.15;
-}
-
-.orb-1 {
-    width: 400px;
-    height: 400px;
-    background: radial-gradient(circle, var(--color-primary) 0%, var(--color-secondary) 100%);
-    top: -100px;
-    right: -100px;
-}
-
-.orb-2 {
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(circle, var(--color-danger) 0%, var(--color-warning) 100%);
-    bottom: -150px;
-    left: -150px;
-}
-
-/* Header Styling */
+/* Left-Side Navigation Panel */
 .app-header {
+    width: 300px;
+    min-width: 300px;
+    max-width: 300px;
+    height: 100vh;
+    position: sticky;
+    top: 0;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2.5rem;
-    background: var(--bg-card);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid var(--border-color);
-    padding: 1.5rem 2.5rem;
-    border-radius: 1.25rem;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    padding: 1.75rem 1.25rem;
+    background: linear-gradient(180deg, #0E1D3A 0%, rgba(11, 22, 44, 0.98) 45%, rgba(5, 11, 24, 0.99) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-right: 1px solid rgba(197, 160, 89, 0.28);
+    border-top: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 8px 0 32px -4px rgba(2, 6, 18, 0.85);
+    border-radius: 0;
+    margin-bottom: 0;
+    overflow-y: auto;
+    z-index: 100;
 }
 
 .brand {
@@ -223,8 +215,10 @@ body {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
-    max-width: 1400px;
-    margin: 0 auto;
+    flex: 1;
+    min-width: 0;
+    padding: 2.25rem 2.5rem;
+    overflow-y: auto;
 }
 
 .col-span-2 {
@@ -249,7 +243,7 @@ body {
 .card:hover {
     border-color: var(--border-hover);
     transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(0, 242, 254, 0.08);
+    box-shadow: 0 14px 44px rgba(27, 42, 74, 0.5), 0 0 24px rgba(200, 169, 110, 0.2);
 }
 
 .card-header {

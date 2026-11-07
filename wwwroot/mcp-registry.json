@@ -1,0 +1,156 @@
+{
+  "version": "1.0.0",
+  "generated": "2026-11-02T18:37:00-06:00",
+  "mcpHubPath": "G:\\My Drive\\Antigravity\\Projects\\MCP",
+  "globalConfig": "~/.gemini/config/mcp_config.json",
+  "servers": [
+    {
+      "id": "game-capture",
+      "name": "Game Capture MCP",
+      "category": "Media & Streaming",
+      "description": "Unified recording, replay clipping, streaming, and telemetry control across OBS Studio 30/31, NVIDIA ShadowPlay/App, and Windows Xbox Game Bar DVR.",
+      "runtime": "Python 3.12 / FastMCP",
+      "status": "Online",
+      "projectTargets": ["Record my Gameplay", "game studio", "youtube shorts edit for gaming"],
+      "tools": [
+        { "name": "obs_get_status", "description": "Live status of OBS recording, streaming, replay buffer, and active scene" },
+        { "name": "obs_launch", "description": "Launch OBS Studio 64-bit if not currently running" },
+        { "name": "obs_start_recording", "description": "Start high-bitrate OBS local video recording" },
+        { "name": "obs_stop_recording", "description": "Stop current OBS recording and flush video file to disk" },
+        { "name": "obs_toggle_recording", "description": "Toggle active OBS recording state" },
+        { "name": "obs_pause_recording", "description": "Pause active OBS recording" },
+        { "name": "obs_resume_recording", "description": "Resume paused OBS recording" },
+        { "name": "obs_save_replay_buffer", "description": "Instantly clip previous 60s gameplay from OBS RAM replay buffer" },
+        { "name": "obs_start_streaming", "description": "Start live streaming broadcast to configured RTMP server" },
+        { "name": "obs_stop_streaming", "description": "Stop active live streaming broadcast" },
+        { "name": "obs_list_scenes", "description": "List all configured scenes in active OBS scene collection" },
+        { "name": "obs_set_current_scene", "description": "Switch active OBS scene programmatically" },
+        { "name": "nvidia_save_instant_replay", "description": "Trigger NVIDIA ShadowPlay instant replay save (Alt+F10)" },
+        { "name": "nvidia_toggle_recording", "description": "Toggle NVIDIA manual recording (Alt+F9)" },
+        { "name": "nvidia_take_screenshot", "description": "Capture NVIDIA high-res screenshot (Alt+F1)" },
+        { "name": "nvidia_toggle_overlay", "description": "Open or close NVIDIA App overlay (Alt+Z)" },
+        { "name": "nvidia_get_gpu_status", "description": "Real-time telemetry (RTX 4080 VRAM, core clocks, temps, power)" },
+        { "name": "xbox_record_clip", "description": "Capture last 30-60s clip via Windows Game DVR (Win+Alt+G)" },
+        { "name": "xbox_toggle_recording", "description": "Toggle Xbox Game Bar DVR recording (Win+Alt+R)" },
+        { "name": "xbox_take_screenshot", "description": "Capture Xbox Game Bar screenshot (Win+Alt+PrtScn)" },
+        { "name": "xbox_open_game_bar", "description": "Open Windows Game Bar overlay (Win+G)" },
+        { "name": "xbox_get_status", "description": "Inspect GameDVR capture folder and video file metrics" },
+        { "name": "list_recent_captures", "description": "Unified discovery of recent captures across OBS, NVIDIA, and Xbox" },
+        { "name": "get_latest_capture", "description": "Retrieve exact path and metadata for newest recorded clip or image" }
+      ]
+    },
+    {
+      "id": "game-studio",
+      "name": "Game Studio MCP",
+      "category": "Game Dev & Reverse Engineering",
+      "description": "Orchestrates game development engines (Unreal Engine 5.8, Unity 6, Godot 4), local project hubs, ROM IPS/BPS patchers, and native disassembly.",
+      "runtime": "Python 3.12 / FastMCP",
+      "status": "Online",
+      "projectTargets": ["game studio", "game mods", "REA", "reverse engineer applications", "mobile game"],
+      "tools": [
+        { "name": "unreal_get_editor_status", "description": "Check if Unreal Engine editor is running and inspect remote Python connection" },
+        { "name": "unreal_launch_editor", "description": "Launch specified Unreal Engine 5 project (.uproject)" },
+        { "name": "unreal_execute_python", "description": "Execute arbitrary automation Python script inside live Unreal Engine instance" },
+        { "name": "unreal_get_level_info", "description": "Query active level name, actor counts, and world partition state in UE5" },
+        { "name": "unreal_spawn_actor", "description": "Spawn blueprint or C++ actor dynamically into current Unreal level" },
+        { "name": "unreal_start_play_in_editor", "description": "Start Play-In-Editor (PIE) session in Unreal Engine" },
+        { "name": "unity_get_status", "description": "Inspect running Unity Editor instance and active project status" },
+        { "name": "unity_list_projects", "description": "List all configured Unity projects and Hub configurations" },
+        { "name": "unity_launch_editor", "description": "Launch Unity Editor targeting a specific project path" },
+        { "name": "unity_launch_hub", "description": "Launch Unity Hub desktop manager" },
+        { "name": "godot_get_status", "description": "Inspect running Godot 4 editor instances" },
+        { "name": "godot_launch_editor", "description": "Launch Godot 4 editor targeting a project.godot file" },
+        { "name": "gamestudio_launch_hub", "description": "Launch master Game Studio developer command portal" },
+        { "name": "gamestudio_launch_shadow_blade", "description": "Launch ShadowBlade Battle Royale development build" },
+        { "name": "gamestudio_list_projects", "description": "Catalog all game studio projects and runtime engine targets" },
+        { "name": "rom_inspect_header", "description": "Parse and validate binary ROM headers (NES, SNES, N64, GBA)" },
+        { "name": "rom_byteswap_n64", "description": "Convert N64 ROM byte-order (little-endian, big-endian, byte-swapped)" },
+        { "name": "rom_apply_ips_patch", "description": "Apply IPS/BPS binary patch to clean target ROM" }
+      ]
+    },
+    {
+      "id": "github",
+      "name": "GitHub Developer MCP",
+      "category": "Source Control & CI/CD",
+      "description": "Full-featured Git repository operations, commit history, pull request reviews, issues, and branch management via GitHub API.",
+      "runtime": "Node.js / Official GitHub MCP",
+      "status": "Online",
+      "projectTargets": ["Github Portfolio", "deploy", "project refinement", "portfolio"],
+      "tools": [
+        { "name": "create_or_update_file", "description": "Commit additions or edits to a GitHub repository file" },
+        { "name": "search_repositories", "description": "Search GitHub repositories by name, topic, or language" },
+        { "name": "create_repository", "description": "Create a new public or private repository on GitHub" },
+        { "name": "get_file_contents", "description": "Fetch file content directly from GitHub repository branch" },
+        { "name": "push_files", "description": "Push multiple file changes in an atomic commit" },
+        { "name": "create_pull_request", "description": "Open a pull request between Git branches" },
+        { "name": "list_commits", "description": "Retrieve recent commit log with author and hash details" },
+        { "name": "list_issues", "description": "List and filter repository issues" }
+      ]
+    },
+    {
+      "id": "puppeteer",
+      "name": "Puppeteer Web Browser MCP",
+      "category": "Browser Automation & Web Scrapers",
+      "description": "Headless Chromium browser automation for dynamic site rendering, screenshot captures, UI interaction, and DOM extraction.",
+      "runtime": "Node.js / Puppeteer",
+      "status": "Online",
+      "projectTargets": ["deal Finder", "track most wanted", "Track Home Value", "spam block", "bot finder"],
+      "tools": [
+        { "name": "puppeteer_navigate", "description": "Navigate Chromium instance to target URL" },
+        { "name": "puppeteer_screenshot", "description": "Capture viewport or full-page screenshot of active web page" },
+        { "name": "puppeteer_click", "description": "Click DOM element identified by CSS selector" },
+        { "name": "puppeteer_fill", "description": "Fill input field or form element with text" },
+        { "name": "puppeteer_select", "description": "Select option in dropdown element" },
+        { "name": "puppeteer_hover", "description": "Simulate hover state over DOM element" },
+        { "name": "puppeteer_evaluate", "description": "Execute custom JavaScript expression in active page context" }
+      ]
+    },
+    {
+      "id": "google-drive",
+      "name": "Google Drive Filesystem MCP",
+      "category": "Cloud Storage & Filesystem",
+      "description": "Direct workspace filesystem bridge to 'G:\\My Drive' and Antigravity projects with full read, write, and directory tree navigation.",
+      "runtime": "Python / FastMCP",
+      "status": "Online",
+      "projectTargets": ["google drive organizer", "email organizer", "deploy", "My Planetarium", "note taker"],
+      "tools": [
+        { "name": "read_file", "description": "Read file contents from allowed Google Drive paths" },
+        { "name": "write_file", "description": "Write or create file in Google Drive project trees" },
+        { "name": "edit_file", "description": "Perform targeted text search-and-replace on file" },
+        { "name": "list_directory", "description": "Enumerate files and folders in directory" },
+        { "name": "directory_tree", "description": "Generate recursive tree view of directory structure" },
+        { "name": "search_files", "description": "Search files by glob or pattern across workspace" },
+        { "name": "get_file_info", "description": "Retrieve file metadata, size, timestamps, and attributes" }
+      ]
+    },
+    {
+      "id": "ollama",
+      "name": "Ollama Local AI MCP",
+      "category": "Local Intelligence & LLM",
+      "description": "Local offline LLM orchestration running on localhost:11434 (Qwen 2.5 Coder, Llama 3, DeepSeek) for zero-latency private inference.",
+      "runtime": "Go / REST API",
+      "status": "Online",
+      "projectTargets": ["ollama", "How to train your AI", "personal assistant", "using ai agents for profit"],
+      "tools": [
+        { "name": "ollama_generate", "description": "Generate streaming completion from local LLM" },
+        { "name": "ollama_chat", "description": "Multi-turn chat interaction with system prompt and tool definitions" },
+        { "name": "ollama_list_models", "description": "Catalog all locally downloaded GGUF/Modelfile weights" },
+        { "name": "ollama_show_model", "description": "Inspect parameter counts, context window, and quantization" }
+      ]
+    },
+    {
+      "id": "google-ai-studio",
+      "name": "Google AI Studio MCP",
+      "category": "Frontier Cloud Intelligence",
+      "description": "Cloud orchestration interface to Google Gemini models (Gemini 2.5 Flash, Pro) with massive context windows and multimodal reasoning.",
+      "runtime": "Node.js / Google GenAI SDK",
+      "status": "Online",
+      "projectTargets": ["agent 365", "ai defense", "Choogle", "My Custom Gui", "project refinement"],
+      "tools": [
+        { "name": "gemini_chat_completion", "description": "Multi-modal reasoning and completion with Gemini" },
+        { "name": "gemini_count_tokens", "description": "Calculate token consumption for prompt payloads" },
+        { "name": "gemini_list_models", "description": "List all accessible Google AI Studio foundation models" }
+      ]
+    }
+  ]
+}
