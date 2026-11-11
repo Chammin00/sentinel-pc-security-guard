@@ -1,6 +1,6 @@
 {
-  "version": "1.0.0",
-  "generated": "2026-11-02T18:37:00-06:00",
+  "version": "2.0.0",
+  "generated": "2026-11-10T00:15:00-06:00",
   "mcpHubPath": "G:\\My Drive\\Antigravity\\Projects\\MCP",
   "globalConfig": "~/.gemini/config/mcp_config.json",
   "servers": [
@@ -8,32 +8,22 @@
       "id": "game-capture",
       "name": "Game Capture MCP",
       "category": "Media & Streaming",
-      "description": "Unified recording, replay clipping, streaming, and telemetry control across OBS Studio 30/31, NVIDIA ShadowPlay/App, and Windows Xbox Game Bar DVR.",
+      "description": "Unified recording, replay clipping, streaming, and telemetry control across OBS Studio 30/31, NVIDIA ShadowPlay AV1, and Windows Xbox Game Bar DVR.",
       "runtime": "Python 3.12 / FastMCP",
       "status": "Online",
-      "projectTargets": ["Record my Gameplay", "game studio", "youtube shorts edit for gaming"],
+      "projectTargets": ["Record my Gameplay", "game studio", "youtube shorts edit for gaming", "youtube channels", "Game Library"],
       "tools": [
         { "name": "obs_get_status", "description": "Live status of OBS recording, streaming, replay buffer, and active scene" },
         { "name": "obs_launch", "description": "Launch OBS Studio 64-bit if not currently running" },
         { "name": "obs_start_recording", "description": "Start high-bitrate OBS local video recording" },
         { "name": "obs_stop_recording", "description": "Stop current OBS recording and flush video file to disk" },
         { "name": "obs_toggle_recording", "description": "Toggle active OBS recording state" },
-        { "name": "obs_pause_recording", "description": "Pause active OBS recording" },
-        { "name": "obs_resume_recording", "description": "Resume paused OBS recording" },
         { "name": "obs_save_replay_buffer", "description": "Instantly clip previous 60s gameplay from OBS RAM replay buffer" },
-        { "name": "obs_start_streaming", "description": "Start live streaming broadcast to configured RTMP server" },
-        { "name": "obs_stop_streaming", "description": "Stop active live streaming broadcast" },
-        { "name": "obs_list_scenes", "description": "List all configured scenes in active OBS scene collection" },
-        { "name": "obs_set_current_scene", "description": "Switch active OBS scene programmatically" },
         { "name": "nvidia_save_instant_replay", "description": "Trigger NVIDIA ShadowPlay instant replay save (Alt+F10)" },
         { "name": "nvidia_toggle_recording", "description": "Toggle NVIDIA manual recording (Alt+F9)" },
-        { "name": "nvidia_take_screenshot", "description": "Capture NVIDIA high-res screenshot (Alt+F1)" },
-        { "name": "nvidia_toggle_overlay", "description": "Open or close NVIDIA App overlay (Alt+Z)" },
         { "name": "nvidia_get_gpu_status", "description": "Real-time telemetry (RTX 4080 VRAM, core clocks, temps, power)" },
         { "name": "xbox_record_clip", "description": "Capture last 30-60s clip via Windows Game DVR (Win+Alt+G)" },
         { "name": "xbox_toggle_recording", "description": "Toggle Xbox Game Bar DVR recording (Win+Alt+R)" },
-        { "name": "xbox_take_screenshot", "description": "Capture Xbox Game Bar screenshot (Win+Alt+PrtScn)" },
-        { "name": "xbox_open_game_bar", "description": "Open Windows Game Bar overlay (Win+G)" },
         { "name": "xbox_get_status", "description": "Inspect GameDVR capture folder and video file metrics" },
         { "name": "list_recent_captures", "description": "Unified discovery of recent captures across OBS, NVIDIA, and Xbox" },
         { "name": "get_latest_capture", "description": "Retrieve exact path and metadata for newest recorded clip or image" }
@@ -42,29 +32,23 @@
     {
       "id": "game-studio",
       "name": "Game Studio MCP",
-      "category": "Game Dev & Reverse Engineering",
+      "category": "Game Dev & Engines",
       "description": "Orchestrates game development engines (Unreal Engine 5.8, Unity 6, Godot 4), local project hubs, ROM IPS/BPS patchers, and native disassembly.",
       "runtime": "Python 3.12 / FastMCP",
       "status": "Online",
-      "projectTargets": ["game studio", "game mods", "REA", "reverse engineer applications", "mobile game"],
+      "projectTargets": ["game studio", "game mods", "REA", "reverse engineer applications", "mobile game", "ChessClash_Godot", "ShatteredPagoda_Godot"],
       "tools": [
         { "name": "unreal_get_editor_status", "description": "Check if Unreal Engine editor is running and inspect remote Python connection" },
         { "name": "unreal_launch_editor", "description": "Launch specified Unreal Engine 5 project (.uproject)" },
         { "name": "unreal_execute_python", "description": "Execute arbitrary automation Python script inside live Unreal Engine instance" },
         { "name": "unreal_get_level_info", "description": "Query active level name, actor counts, and world partition state in UE5" },
-        { "name": "unreal_spawn_actor", "description": "Spawn blueprint or C++ actor dynamically into current Unreal level" },
-        { "name": "unreal_start_play_in_editor", "description": "Start Play-In-Editor (PIE) session in Unreal Engine" },
         { "name": "unity_get_status", "description": "Inspect running Unity Editor instance and active project status" },
         { "name": "unity_list_projects", "description": "List all configured Unity projects and Hub configurations" },
         { "name": "unity_launch_editor", "description": "Launch Unity Editor targeting a specific project path" },
-        { "name": "unity_launch_hub", "description": "Launch Unity Hub desktop manager" },
         { "name": "godot_get_status", "description": "Inspect running Godot 4 editor instances" },
         { "name": "godot_launch_editor", "description": "Launch Godot 4 editor targeting a project.godot file" },
         { "name": "gamestudio_launch_hub", "description": "Launch master Game Studio developer command portal" },
-        { "name": "gamestudio_launch_shadow_blade", "description": "Launch ShadowBlade Battle Royale development build" },
-        { "name": "gamestudio_list_projects", "description": "Catalog all game studio projects and runtime engine targets" },
         { "name": "rom_inspect_header", "description": "Parse and validate binary ROM headers (NES, SNES, N64, GBA)" },
-        { "name": "rom_byteswap_n64", "description": "Convert N64 ROM byte-order (little-endian, big-endian, byte-swapped)" },
         { "name": "rom_apply_ips_patch", "description": "Apply IPS/BPS binary patch to clean target ROM" }
       ]
     },
@@ -75,7 +59,7 @@
       "description": "Full-featured Git repository operations, commit history, pull request reviews, issues, and branch management via GitHub API.",
       "runtime": "Node.js / Official GitHub MCP",
       "status": "Online",
-      "projectTargets": ["Github Portfolio", "deploy", "project refinement", "portfolio"],
+      "projectTargets": ["Github Portfolio", "deploy", "project refinement", "portfolio", "youtube channels"],
       "tools": [
         { "name": "create_or_update_file", "description": "Commit additions or edits to a GitHub repository file" },
         { "name": "search_repositories", "description": "Search GitHub repositories by name, topic, or language" },
@@ -90,11 +74,11 @@
     {
       "id": "puppeteer",
       "name": "Puppeteer Web Browser MCP",
-      "category": "Browser Automation & Web Scrapers",
-      "description": "Headless Chromium browser automation for dynamic site rendering, screenshot captures, UI interaction, and DOM extraction.",
+      "category": "Headless Web Automation & Auditing",
+      "description": "Headless Chromium browser automation for dynamic site rendering, screenshot captures, UI interaction, DOM extraction, and visual-to-code regression testing.",
       "runtime": "Node.js / Puppeteer",
       "status": "Online",
-      "projectTargets": ["deal Finder", "track most wanted", "Track Home Value", "spam block", "bot finder"],
+      "projectTargets": ["deal Finder", "track most wanted", "Track Home Value", "spam block", "bot finder", "youtube channels", "deploy"],
       "tools": [
         { "name": "puppeteer_navigate", "description": "Navigate Chromium instance to target URL" },
         { "name": "puppeteer_screenshot", "description": "Capture viewport or full-page screenshot of active web page" },
@@ -112,7 +96,7 @@
       "description": "Direct workspace filesystem bridge to 'G:\\My Drive' and Antigravity projects with full read, write, and directory tree navigation.",
       "runtime": "Python / FastMCP",
       "status": "Online",
-      "projectTargets": ["google drive organizer", "email organizer", "deploy", "My Planetarium", "note taker"],
+      "projectTargets": ["google drive organizer", "email organizer", "deploy", "My Planetarium", "note taker", "youtube channels"],
       "tools": [
         { "name": "read_file", "description": "Read file contents from allowed Google Drive paths" },
         { "name": "write_file", "description": "Write or create file in Google Drive project trees" },
@@ -150,6 +134,150 @@
         { "name": "gemini_chat_completion", "description": "Multi-modal reasoning and completion with Gemini" },
         { "name": "gemini_count_tokens", "description": "Calculate token consumption for prompt payloads" },
         { "name": "gemini_list_models", "description": "List all accessible Google AI Studio foundation models" }
+      ]
+    },
+    {
+      "id": "crunchyroll",
+      "name": "Crunchyroll & Celestial Planetarium MCP",
+      "category": "Media & Streaming",
+      "description": "Media progress tracking, catalog search, and 3D celestial planetarium mapping across anime streaming libraries.",
+      "runtime": "Python 3.12 / FastMCP",
+      "status": "Online",
+      "projectTargets": ["anime", "My Planetarium"],
+      "tools": [
+        { "name": "crunchyroll_get_profile", "description": "Inspect user profile, completion rates, and streaming statistics" },
+        { "name": "crunchyroll_get_watchlist", "description": "Filter watchlist and library status" },
+        { "name": "crunchyroll_get_series_details", "description": "Retrieve season counts and episode metadata" },
+        { "name": "crunchyroll_get_planetarium_data", "description": "Export 3D celestial coordinate nodes for WebGL planetarium" }
+      ]
+    },
+    {
+      "id": "linkedin",
+      "name": "LinkedIn Executive Syndication MCP",
+      "category": "Executive Marketing & Recruiter Ops",
+      "description": "Model Context Protocol server for LinkedIn profile optimization, executive headline algorithms, featured media syndication, and high-impact project announcements targeting $160k+ salary roles.",
+      "runtime": "Python 3.12 / FastMCP",
+      "status": "Online",
+      "projectTargets": ["Github Portfolio", "portfolio", "MCP"],
+      "tools": [
+        { "name": "linkedin_get_profile_headline_variants", "description": "Generates 5 high-converting headlines optimized for 220 chars and recruiter SEO" },
+        { "name": "linkedin_export_executive_about", "description": "Exports full executive narrative highlighting enterprise leadership and FastMCP" },
+        { "name": "linkedin_export_featured_section", "description": "Generates structured media cards and links for LinkedIn Featured section" },
+        { "name": "linkedin_generate_project_announcement", "description": "Creates viral, technical engineering announcement posts for recent portfolio projects" },
+        { "name": "linkedin_sync_portfolio_status", "description": "Inspects portfolio synchronization status and validates canonical links" }
+      ]
+    },
+    {
+      "id": "figma",
+      "name": "Figma Design & Motion MCP",
+      "category": "Design Systems & Prototyping",
+      "description": "Bi-directional bridge between Figma design systems, motion timelines, code connect templates, and live frontend components.",
+      "runtime": "Node.js / Official Figma MCP",
+      "status": "Online",
+      "projectTargets": ["portfolio", "My Custom Gui", "game studio", "youtube channels"],
+      "tools": [
+        { "name": "get_design_context", "description": "Extract design specs, layout hierarchy, and style tokens" },
+        { "name": "get_motion_context", "description": "Extract animation easing curves and keyframe timelines" },
+        { "name": "create_new_file", "description": "Create new Figma design canvas or FigJam board" }
+      ]
+    },
+    {
+      "id": "google-flow",
+      "name": "Google Flow Generative Media MCP",
+      "category": "Creative AI Generation",
+      "description": "Generative media orchestrator for AI video and image generation pipelines, project assets, and media downloads.",
+      "runtime": "Node.js / Flow MCP",
+      "status": "Online",
+      "projectTargets": ["youtube channels", "3d images", "backgrounds for gaming,apps"],
+      "tools": [
+        { "name": "flow_generate_video", "description": "Queue generative video creation with model prompts" },
+        { "name": "flow_generate_image", "description": "Generate high-resolution visual art assets" },
+        { "name": "flow_status", "description": "Check status of queued media generation jobs" }
+      ]
+    },
+    {
+      "id": "canva",
+      "name": "Canva Brand & Layout MCP",
+      "category": "Creative Publishing",
+      "description": "Publishing and resizing engine for cross-platform social thumbnails, brand kit compliance, and video export cards.",
+      "runtime": "Node.js / Canva MCP",
+      "status": "Online",
+      "projectTargets": ["youtube channels", "Social Media", "deploy"],
+      "tools": [
+        { "name": "get_design", "description": "Retrieve design metadata and export formats" },
+        { "name": "export_design", "description": "Export rendered assets in JPG, PNG, or MP4 formats" },
+        { "name": "resize_design", "description": "Resize design into YouTube Short, Instagram, or widescreen formats" }
+      ]
+    },
+    {
+      "id": "perplexity",
+      "name": "Perplexity Search & Research MCP",
+      "category": "Real-time Search & Intelligence",
+      "description": "Live real-time web search and multi-source technical reasoning directly inside terminal and agent workflows.",
+      "runtime": "Node.js / Perplexity MCP",
+      "status": "Online",
+      "projectTargets": ["deploy", "youtube channels", "documentation", "research"],
+      "tools": [
+        { "name": "perplexity_search", "description": "Fast web search with real-time citations and sources" },
+        { "name": "perplexity_research", "description": "Deep multi-pass analytical research using Sonar models" }
+      ]
+    },
+    {
+      "id": "playwright",
+      "name": "Playwright Browser Automation MCP",
+      "category": "Headless Web Automation & Auditing",
+      "description": "Cross-browser automation (Chromium, Firefox, WebKit) for end-to-end testing, interactive form submission, and visual regression.",
+      "runtime": "Node.js / Playwright MCP",
+      "status": "Online",
+      "projectTargets": ["deploy", "My Custom Gui", "portfolio", "deal Finder"],
+      "tools": [
+        { "name": "playwright_navigate", "description": "Navigate to URL" },
+        { "name": "playwright_screenshot", "description": "Capture page or element screenshot" },
+        { "name": "playwright_click", "description": "Click element matched by selector or text" },
+        { "name": "playwright_fill", "description": "Fill input field or form element" },
+        { "name": "playwright_evaluate", "description": "Execute JavaScript expression in browser context" }
+      ]
+    },
+    {
+      "id": "firecrawl",
+      "name": "Firecrawl Web Scraper MCP",
+      "category": "Content Extraction & Scraping",
+      "description": "Extracts clean, LLM-ready markdown from any URL, crawls full documentation trees, and performs structured JSON extractions.",
+      "runtime": "Node.js / Firecrawl MCP",
+      "status": "Online",
+      "projectTargets": ["documentation", "research", "scraping", "bot finder"],
+      "tools": [
+        { "name": "firecrawl_scrape", "description": "Extract clean markdown and metadata from a URL" },
+        { "name": "firecrawl_crawl", "description": "Recursively crawl sub-links from a base URL" },
+        { "name": "firecrawl_map", "description": "Discover all URLs under a domain" }
+      ]
+    },
+    {
+      "id": "higgsfield",
+      "name": "Higgsfield AI Generative Media MCP",
+      "category": "Creative AI Generation",
+      "description": "Cinematic visual generation orchestrator accessing 30+ visual models for camera motion, character control, and video rendering.",
+      "runtime": "Node.js / Higgsfield MCP",
+      "status": "Online",
+      "projectTargets": ["youtube channels", "Social Media", "3d images", "game studio"],
+      "tools": [
+        { "name": "higgsfield_generate_image", "description": "Create cinematic concept art and character stills" },
+        { "name": "higgsfield_generate_video", "description": "Render dynamic video clips from text or image" },
+        { "name": "higgsfield_list_models", "description": "List 30+ available video and diffusion models" }
+      ]
+    },
+    {
+      "id": "chrome-devtools",
+      "name": "Chrome DevTools MCP",
+      "category": "Developer Tools & Live Browser Debugging",
+      "description": "Direct bridge to active Google Chrome tabs for DOM inspection, network telemetry, console logs, and performance profiling.",
+      "runtime": "Node.js / Chrome DevTools MCP",
+      "status": "Online",
+      "projectTargets": ["deploy", "My Custom Gui", "portfolio", "youtube channels"],
+      "tools": [
+        { "name": "chrome_inspect_dom", "description": "Inspect DOM tree and computed CSS properties" },
+        { "name": "chrome_get_console_logs", "description": "Read live browser console errors and logs" },
+        { "name": "chrome_network_activity", "description": "Inspect HTTP requests, headers, and responses" }
       ]
     }
   ]
