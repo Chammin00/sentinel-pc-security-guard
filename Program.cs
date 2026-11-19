@@ -3,10 +3,42 @@ using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Enable static files
-builder.Services.AddDirectoryBrowser();
-
 var app = builder.Build();
+
+app.Use(async (context, next) =>
+{
+    var headers = context.Response.Headers;
+    headers["X-Content-Type-Options"] = "nosniff";
+    headers["X-Frame-Options"] = "DENY";
+    headers["Referrer-Policy"] = "strict-origin-when-cross-origin";
+    headers["Permissions-Policy"] = "camera=(), microphone=(), geolocation=()";
+    headers["Content-Security-Policy"] =
+        "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; frame-ancestors 'none'; base-uri 'self'; form-action 'self'";
+
+    if (HttpMethods.IsPost(context.Request.Method) ||
+        HttpMethods.IsPut(context.Request.Method) ||
+        HttpMethods.IsPatch(context.Request.Method) ||
+        HttpMethods.IsDelete(context.Request.Method))
+    {
+        var origin = context.Request.Headers.Origin.ToString();
+        var referer = context.Request.Headers.Referer.ToString();
+        var checkUri = !string.IsNullOrEmpty(origin) ? origin : referer;
+
+        if (!string.IsNullOrEmpty(checkUri))
+        {
+            if (!Uri.TryCreate(checkUri, UriKind.Absolute, out var uri) ||
+                !string.Equals(uri.Host, context.Request.Host.Host, StringComparison.OrdinalIgnoreCase) ||
+                (context.Request.Host.Port.HasValue && uri.Port != context.Request.Host.Port.Value))
+            {
+                context.Response.StatusCode = StatusCodes.Status403Forbidden;
+                await context.Response.WriteAsJsonAsync(new { error = "Cross-origin state-changing request blocked." });
+                return;
+            }
+        }
+    }
+
+    await next();
+});
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
@@ -33,7 +65,7 @@ app.MapGet("/api/status", () =>
     string scriptPath = Path.Combine(app.Environment.ContentRootPath, "Get-SecurityStatus.ps1");
     if (!File.Exists(scriptPath))
     {
-        return Results.Problem($"Script Get-SecurityStatus.ps1 not found in content root: {app.Environment.ContentRootPath}");
+        return Results.Problem("Security status script not found.");
     }
 
     try
@@ -41,9 +73,9 @@ app.MapGet("/api/status", () =>
         string jsonResult = RunPowerShellScript(scriptPath);
         return Results.Content(jsonResult, "application/json");
     }
-    catch (Exception ex)
+    catch (Exception)
     {
-        return Results.Problem(ex.Message);
+        return Results.Problem("Failed to retrieve security status.");
     }
 });
 
@@ -54,7 +86,7 @@ app.MapPost("/api/scan-file", async (HttpContext context) =>
     var body = await reader.ReadToEndAsync();
     var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
     var request = JsonSerializer.Deserialize<ScanRequest>(body, options);
-    
+
     if (request == null || string.IsNullOrWhiteSpace(request.FilePath))
     {
         return Results.BadRequest(new { error = "Invalid file path" });
@@ -71,7 +103,11 @@ app.MapPost("/api/scan-file", async (HttpContext context) =>
     {
         using var process = new Process();
         process.StartInfo.FileName = mpCmdRunPath;
-        process.StartInfo.Arguments = $"-Scan -ScanType 3 -File \"{request.FilePath}\"";
+        process.StartInfo.ArgumentList.Add("-Scan");
+        process.StartInfo.ArgumentList.Add("-ScanType");
+        process.StartInfo.ArgumentList.Add("3");
+        process.StartInfo.ArgumentList.Add("-File");
+        process.StartInfo.ArgumentList.Add(request.FilePath);
         process.StartInfo.RedirectStandardOutput = true;
         process.StartInfo.RedirectStandardError = true;
         process.StartInfo.UseShellExecute = false;
@@ -87,8 +123,9 @@ app.MapPost("/api/scan-file", async (HttpContext context) =>
         // 0 = clean, 2 = threat found, 1 = error/cancelled
         bool isClean = exitCode == 0;
         bool isThreatDetected = exitCode == 2;
-        
-        return Results.Ok(new {
+
+        return Results.Ok(new
+        {
             exitCode,
             isClean,
             isThreatDetected,
@@ -96,9 +133,9 @@ app.MapPost("/api/scan-file", async (HttpContext context) =>
             error = error.Trim()
         });
     }
-    catch (Exception ex)
+    catch (Exception)
     {
-        return Results.Problem(ex.Message);
+        return Results.Problem("File scan failed due to an internal error.");
     }
 });
 
@@ -126,14 +163,18 @@ app.MapPost("/api/remediate", async (HttpContext context) =>
     }
     else
     {
-        return Results.BadRequest(new { error = $"Unknown action: {request.Action}" });
+        return Results.BadRequest(new { error = "Unknown remediation action." });
     }
 
     try
     {
         using var process = new Process();
         process.StartInfo.FileName = "powershell.exe";
-        process.StartInfo.Arguments = $"-NoProfile -ExecutionPolicy Bypass -Command \"{command}\"";
+        process.StartInfo.ArgumentList.Add("-NoProfile");
+        process.StartInfo.ArgumentList.Add("-ExecutionPolicy");
+        process.StartInfo.ArgumentList.Add("Bypass");
+        process.StartInfo.ArgumentList.Add("-Command");
+        process.StartInfo.ArgumentList.Add(command);
         process.StartInfo.RedirectStandardOutput = true;
         process.StartInfo.RedirectStandardError = true;
         process.StartInfo.UseShellExecute = false;
@@ -146,16 +187,17 @@ app.MapPost("/api/remediate", async (HttpContext context) =>
 
         bool success = process.ExitCode == 0;
 
-        return Results.Ok(new {
+        return Results.Ok(new
+        {
             success,
             exitCode = process.ExitCode,
             output = output.Trim(),
             error = error.Trim()
         });
     }
-    catch (Exception ex)
+    catch (Exception)
     {
-        return Results.Problem(ex.Message);
+        return Results.Problem("Remediation failed due to an internal error.");
     }
 });
 
@@ -170,4 +212,3 @@ public class RemediateRequest
 {
     public string Action { get; set; } = "";
 }
-
